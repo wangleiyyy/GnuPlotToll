@@ -6,7 +6,7 @@
 #include "GnuplotTool.h"
 #include "GnuplotToolDlg.h"
 #include "afxdialogex.h"
-
+#include <string.h>
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -18,7 +18,6 @@ class CAboutDlg : public CDialogEx
 {
 public:
 	CAboutDlg();
-
 // Dialog Data
 	enum { IDD = IDD_ABOUTBOX };
 
@@ -56,12 +55,16 @@ CGnuplotToolDlg::CGnuplotToolDlg(CWnd* pParent /*=NULL*/)
 void CGnuplotToolDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_GNU_PLT_PATH, m_edit_gpltpath);
+	DDX_Control(pDX, IDC_EBC, m_ebc_gnupltpath);
 }
 
 BEGIN_MESSAGE_MAP(CGnuplotToolDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_BN_CLICKED(IDC_BTN_PATH_GPLT, &CGnuplotToolDlg::OnBnClickedBtnPathGplt)
+	ON_EN_CHANGE(IDC_EBC, &CGnuplotToolDlg::OnEnChangeEbc)
 END_MESSAGE_MAP()
 
 
@@ -150,3 +153,98 @@ HCURSOR CGnuplotToolDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+
+void CGnuplotToolDlg::OnEnChangeEdit1()
+{
+	// TODO:  If this is a RICHEDIT control, the control will not
+	// send this notification unless you override the CDialogEx::OnInitDialog()
+	// function and call CRichEditCtrl().SetEventMask()
+	// with the ENM_CHANGE flag ORed into the mask.
+
+	// TODO:  Add your control notification handler code here
+}
+
+
+
+void CGnuplotToolDlg::OnBnClickedBtnPathGplt()
+{
+
+	sdrplt_t pltt;
+	int i = 0;
+	//initsdrplot(&pltt);
+	pltt.y = (double*)malloc(sizeof(double)* 10);
+
+	for (i = 0; i < 10; i++)
+	{
+		*(pltt.y + i) = i;
+	}
+	USES_CONVERSION;
+	char *path = T2A(selectedPath);
+	//pltt.fp = _popen("D:\\\MyPrj\\5_VC6_0\\GnuPlotToll\\Debug\\gnuplot.exe", "w");
+	//pltt.fp = _popen("D:\\\Progra~1\\gnuplot\\bin\\gnuplot.exe", "w");
+	pltt.fp = _popen("D:\\MyPrj\\5_VC6_0\\GnuPlotToll\\Gnuplot\\gnuplot.exe", "w");
+
+	//pltt.fp = _popen("D:\\MyPrj\\15_GPS_INS\\GNSS-SDRLIB\\cli\\win\\x64\\Debug\\gnuplot\\gnuplot.exe", "w");
+
+
+	fprintf(pltt.fp, "plot(sin(x))  \n");
+	for (i = 0; i< 10; i += (0 + 1))
+		fprintf(pltt.fp, "%.3f\n", pltt.y[i]);
+	//fprintf(pltt.fp, "e\n");
+	fflush(pltt.fp);
+
+
+	//int i = 0;
+	////initsdrplot(&pltt);
+	//pltt.y = (double*)malloc(sizeof(double)* 10);
+
+	//for (i = 0; i < 10; i++)
+	//{
+	//	*(pltt.y + i) = i;
+	//}
+
+
+	////pltt.fp = _popen((LPSTR)(LPCTSTR)selectedPath, "w");
+	//pltt.fp = _popen("D:\\\Progra~1\\gnuplot\\bin\\gnuplot.exe", "w");
+	//
+	////pltt.fp = _popen("D:\\MyPrj\\15_GPS_INS\\GNSS-SDRLIB\\cli\\win\\x64\\Debug\\gnuplot\\gnuplot.exe", "w");
+	////fprintf(pltt.fp, "set terminal windows\n");
+	////fprintf(pltt.fp, "set size 0.5,0.5\n");
+	////fprintf(pltt.fp, "set origin 0.0, 0.5\n");
+	////for (int i = 0; i < 100; i++)
+	//{
+	//	//fprintf(pltt.fp, "plot(cos(x))  \n");
+	//	fprintf(pltt.fp, "gnuplot>plot[0:5][-2:2] sin(x)\n");
+	//	
+	//	::Sleep(100);
+	//	//fprintf(pltt.fp, "plot(sin(x))  \n");
+
+	//}
+
+	////for (i = 0; i< 10; i += (0 + 1))
+	////	fprintf(pltt.fp, "%.3f\n", pltt.y[i]);
+	////fprintf(pltt.fp, "e\n");
+	//fflush(pltt.fp);
+
+
+	//if (pltt.fp != NULL)
+	//{
+	//	_pclose(pltt.fp);
+	//	pltt.fp = NULL;
+	//}
+
+}
+
+void CGnuplotToolDlg::OnEnChangeEbc()
+{
+	// TODO:  If this is a RICHEDIT control, the control will not
+	// send this notification unless you override the CDialogEx::OnInitDialog()
+	// function and call CRichEditCtrl().SetEventMask()
+	// with the ENM_CHANGE flag ORed into the mask.
+
+	// TODO:  Add your control notification handler code here
+
+
+	m_ebc_gnupltpath.GetWindowTextW(selectedPath);
+}

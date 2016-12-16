@@ -51,13 +51,11 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\GnuplotTool.rc2">
-      <Filter>Resource Files</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Image Include="res\GnuplotTool.ico">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

@@ -117,12 +117,17 @@
     <ResourceCompile Include="GnuplotTool.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\GnuplotTool.rc2" />
+    <Image Include="res\GnuplotTool.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\GnuplotTool.ico" />
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="GnuplotTool.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>
