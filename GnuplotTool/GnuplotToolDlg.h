@@ -60,7 +60,7 @@ public:
 	// edit browse control gnu path 
 	CMFCEditBrowseCtrl m_ebc_gnupltpath;
 	afx_msg void OnEnChangeEbc();
-
+	CString   ReturnPath();
 	CString selectedPath;
 	sdrplt_t pltt;
 };
