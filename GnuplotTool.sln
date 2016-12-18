@@ -3,11 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GnuplotTool", "GnuplotTool\GnuplotTool.vcxproj", "{556B6475-B3F3-4D27-92EA-4061749D1F22}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TESTCOS", "TESTCOS\TESTCOS.vcxproj", "{55ED701D-182E-429E-83BD-2858D74A22FB}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestCGnuplot", "TestCGnuplot\TestCGnuplot.vcxproj", "{C7063FA1-5E15-4D1F-8002-4E357F2AFEE2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,18 +11,10 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{556B6475-B3F3-4D27-92EA-4061749D1F22}.Debug|Win32.ActiveCfg = Debug|Win32
-		{556B6475-B3F3-4D27-92EA-4061749D1F22}.Debug|Win32.Build.0 = Debug|Win32
-		{556B6475-B3F3-4D27-92EA-4061749D1F22}.Release|Win32.ActiveCfg = Release|Win32
-		{556B6475-B3F3-4D27-92EA-4061749D1F22}.Release|Win32.Build.0 = Release|Win32
 		{55ED701D-182E-429E-83BD-2858D74A22FB}.Debug|Win32.ActiveCfg = Debug|Win32
 		{55ED701D-182E-429E-83BD-2858D74A22FB}.Debug|Win32.Build.0 = Debug|Win32
 		{55ED701D-182E-429E-83BD-2858D74A22FB}.Release|Win32.ActiveCfg = Release|Win32
 		{55ED701D-182E-429E-83BD-2858D74A22FB}.Release|Win32.Build.0 = Release|Win32
-		{C7063FA1-5E15-4D1F-8002-4E357F2AFEE2}.Debug|Win32.ActiveCfg = Debug|Win32
-		{C7063FA1-5E15-4D1F-8002-4E357F2AFEE2}.Debug|Win32.Build.0 = Debug|Win32
-		{C7063FA1-5E15-4D1F-8002-4E357F2AFEE2}.Release|Win32.ActiveCfg = Release|Win32
-		{C7063FA1-5E15-4D1F-8002-4E357F2AFEE2}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

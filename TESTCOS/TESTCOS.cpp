@@ -4,46 +4,84 @@
 #include "stdafx.h"
 #include <stdio.h>
 #include <Windows.h>
+#include <iostream>
 #include "GnuPlotAPI.h"
+#include <string>
+string gnupltstrproc(int cols, int colstartIndex, string filename)
+{
+	string gnupltstr = string("plot ");
 
-double *datax,*datay;
+	//string("plot '") + filename + "' using " + to_string(col) + " with lines\n"
+
+	for (int i = 0; i < cols; i++)
+	{
+		gnupltstr += "'" + filename + "' using " + to_string(colstartIndex + i) + " with lines, ";
+	}
+	gnupltstr += string("\n");
+
+
+	return gnupltstr;
+}
+
 int _tmain(int argc, _TCHAR* argv[])
 {
+	double *datax, *datay;
 	gnuplotapi_t gnuplt1;
 	gnuplotapi_t gnuplt2;
 	datax = (double*)malloc(sizeof(double)* 1000);
 	datay = (double*)malloc(sizeof(double)* 1000);
 	int i=0,j=0;
+	int cols;
+	string datapath;
+	string usingcmd;
+	cout << "Please input the path of data:\n";
+	cin.clear();
+	getline(cin, datapath); //将当前行从缓存中取出
+
+	while (1)
+	{
+		cout << "draw the col of data:\n";
+		cin >> cols ;
+		switch (cols)
+		{
+		case 31:
+			usingcmd = gnupltstrproc(3, 1, datapath);
+			break;
+		case 34:
+			usingcmd = gnupltstrproc(3, 4, datapath);
+			break;
+		case 37:
+			usingcmd = gnupltstrproc(3, 7, datapath);
+			break;
+		case 0:
+			goto OUT_EXIT;
+			break;
+		default:
+			usingcmd = gnupltstrproc(1, cols, datapath);
+			break;
+		}
 
 
-
+		//cout << "plot col:" + col +string("\n") ;
+		
 
 		if (gnuplt1.Open())
 		{
 			gnuplt1.SetCurrentWnd();
+			//gnuplt1.Plot(("plot '") + datapath + "' using " + to_string( col )+ " with lines\n");
+			gnuplt1.Plot(usingcmd);
 
-		//while (1)
-			{
-				for (i = 0; i < 1000; i++)
-				{
-					datax[i] = i;
-					datay[i] = i *0.1;
-				}
-				gnuplt1.plot(datay,datax, 1000);
-				//gnuplt1.Plot("plot sin(x),cos(x)\n");
-				gnuplt1.Fls();
-				j++;
-				Sleep(100);
-				if (j == 100)
-				{
-					//break;
-				}
-			}
-
+			gnuplt1.Fls();
 		}
 
+
+	}
+
+
 	
-	getchar();
+
+OUT_EXIT:
+
 
 	//if (gnuplt2.Open())
 	//{
@@ -58,7 +96,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	//gnuplt1.Fls();
 
 
-	getchar();
+	//getchar();
 
 	//sdrplt_t pltt;
 	//int i = 0;

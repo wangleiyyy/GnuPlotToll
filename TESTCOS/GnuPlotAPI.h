@@ -4,11 +4,11 @@
 
 #include "stdafx.h"
 #include <stdio.h>
-#include <string.h>
 #include <math.h>
 #include <atlstr.h>
 #include <io.h>
 #include <list>
+#include <string>
 using namespace std;
 
 /*plotting setting */
@@ -83,6 +83,7 @@ public:
 	void	plot(double *y, int n);
 	void	plot(double *x, double *y, int n);
 	void    AddLine(PltLine* _line);
+	void	Plot(string _str);
 	~CGnuPlotAPI();
 private:
 	FILE		*m_fp;            /* file pointer (gnuplot pipe) */

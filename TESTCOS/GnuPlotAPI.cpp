@@ -7,14 +7,13 @@ int CGnuPlotAPI::TERM_CNT = 0;
 
 CGnuPlotAPI::CGnuPlotAPI()
 {
-	m_pltpath = CGnuPlotAPI::ReturnPath() + "\\Gnuplot\\gnuplot.exe";
+	m_pltpath = ReturnPath() ;
 	TERM_CNT++;
 	this->m_pltID = TERM_CNT;
 
 	/* hide window */
-	//hw_CMD = FindWindow(NULL, _T("c:\\Windows\\system32\\cmd.exe"));
-	//ShowWindow(hw_CMD, SW_HIDE);
-
+	hw_CMD = FindWindow(NULL, _T("c:\\Windows\\system32\\cmd.exe"));
+	ShowWindow(hw_CMD, SW_HIDE);
 }
 
 CGnuPlotAPI::~CGnuPlotAPI()
@@ -33,7 +32,7 @@ CString    CGnuPlotAPI::ReturnPath()
 	sPath.ReleaseBuffer();
 	int    nPos;
 	nPos = sPath.ReverseFind('\\');
-	sPath = sPath.Left(nPos);
+	sPath = sPath.Left(nPos)+ CString("\\Gnuplot\\gnuplot.exe");
 	return    sPath;
 }
 
@@ -66,7 +65,10 @@ void	CGnuPlotAPI::Plot(CString _str)
 	USES_CONVERSION;
 	fprintf(m_fp, T2A(_str));
 }
-
+void	CGnuPlotAPI::Plot(string _str)
+{
+	fprintf(m_fp, _str.c_str());
+}
 
 /* gnuplot set x axis range ----------------------------------------------------
 * set x axis range
@@ -166,7 +168,7 @@ void CGnuPlotAPI::plot(double *x, double *y, int n)
 	int i;
 	fprintf(m_fp, "set grid\n");
 	fprintf(m_fp, "unset key\n");
-	fprintf(m_fp, "plot '-' with lines p l\n");
+	fprintf(m_fp, "plot '-' with lines lt 1\n");
 	for (i = 0; i<n; i ++)
 		fprintf(m_fp, "%.3f\t%.3f\n", x[i], y[i]);
 	fprintf(m_fp, "e\n");
