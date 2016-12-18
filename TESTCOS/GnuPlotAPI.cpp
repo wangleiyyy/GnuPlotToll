@@ -104,30 +104,31 @@ void CGnuPlotAPI::SetCurrentWnd()
 
 int CGnuPlotAPI::MallocPlotData(int _type)
 {
-	/* memory allocation */
-	switch (_type) {
-	case PLT_Y:
-		if (!(m_y = (double*)malloc(sizeof(double)*m_ny))) {
-			//SDRPRINTF("error: initsdrplot memory allocation\n");
-			return -1;
-		}
-		break;
-	case PLT_XY:
-		if (!(m_x = (double*)malloc(sizeof(double)*m_nx)) ||
-			!(m_y = (double*)malloc(sizeof(double)*m_nx))) {
-			//SDRPRINTF("error: initsdrplot memory allocation\n");
-			return -1;
-		}
-		break;
-	case PLT_SURFZ:
-		if (!(m_z = (double*)malloc(sizeof(double)*m_nx*m_ny))){
-			//SDRPRINTF("error: initsdrplot memory allocation\n");
-			return -1;
-		}
-		break;
-	default:
-		break;
-	}
+	///* memory allocation */
+	//switch (_type) {
+	//case PLT_Y:
+	//	if (!(m_y = (double*)malloc(sizeof(double)*m_ny))) {
+	//		//SDRPRINTF("error: initsdrplot memory allocation\n");
+	//		return -1;
+	//	}
+	//	break;
+	//case PLT_XY:
+	//	if (!(m_x = (double*)malloc(sizeof(double)*m_nx)) ||
+	//		!(m_y = (double*)malloc(sizeof(double)*m_nx))) {
+	//		//SDRPRINTF("error: initsdrplot memory allocation\n");
+	//		return -1;
+	//	}
+	//	break;
+	//case PLT_SURFZ:
+	//	if (!(m_z = (double*)malloc(sizeof(double)*m_nx*m_ny))){
+	//		//SDRPRINTF("error: initsdrplot memory allocation\n");
+	//		return -1;
+	//	}
+	//	break;
+	//default:
+	//	break;
+	//}
+	return 0;
 
 }
 /* plot 1D function ------------------------------------------------------------
@@ -139,20 +140,39 @@ int CGnuPlotAPI::MallocPlotData(int _type)
 *          double s         I   scale factor of y data
 * return : none
 *-----------------------------------------------------------------------------*/
-void CGnuPlotAPI::ploty(double *y, int n, int skip, double s)
+void CGnuPlotAPI::plot(double *y, int n)
 {
 	int i;
 	fprintf(m_fp, "set grid\n");
 	fprintf(m_fp, "unset key\n");
-	fprintf(m_fp, "plot '-' with lp lw 1 pt 6 ps %d\n", PSIZE);
-	for (i = 0; i<n; i += (skip + 1))
-		fprintf(m_fp, "%.3f\n", y[i] * s);
+	fprintf(m_fp, "plot '-' with lp lw 1 pt 6 ps 2\n");
+	for (i = 0; i<n; i ++)
+		fprintf(m_fp, "%.3f\n", y[i]);
 	fprintf(m_fp, "e\n");
 	fflush(m_fp);
 }
-
+/* plot 2D function ------------------------------------------------------------
+* gnuplot plot 2D data function
+* args   : FILE   *fp       I   gnuplot pipe handle
+*          double *x        I   x data
+*          double *y        I   y data
+*          int    n         I   number of input data
+*          int    skip      I   number of skip data (0: plot all data)
+*          double s         I   scale factor of y data
+* return : none
+*-----------------------------------------------------------------------------*/
+void CGnuPlotAPI::plot(double *x, double *y, int n)
+{
+	int i;
+	fprintf(m_fp, "set grid\n");
+	fprintf(m_fp, "unset key\n");
+	fprintf(m_fp, "plot '-' with lines p l\n");
+	for (i = 0; i<n; i ++)
+		fprintf(m_fp, "%.3f\t%.3f\n", x[i], y[i]);
+	fprintf(m_fp, "e\n");
+	fflush(m_fp);
+}
 void CGnuPlotAPI::AddLine(PltLine* _line)
 {
-	m_line.insert(m_line.begin(),_line);
 
 }

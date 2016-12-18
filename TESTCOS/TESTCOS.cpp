@@ -6,29 +6,56 @@
 #include <Windows.h>
 #include "GnuPlotAPI.h"
 
-
+double *datax,*datay;
 int _tmain(int argc, _TCHAR* argv[])
 {
 	gnuplotapi_t gnuplt1;
 	gnuplotapi_t gnuplt2;
+	datax = (double*)malloc(sizeof(double)* 1000);
+	datay = (double*)malloc(sizeof(double)* 1000);
+	int i=0,j=0;
 
-	if (gnuplt1.Open())
-	{
-		gnuplt1.SetCurrentWnd();
-		gnuplt1.Plot("plot sin(x),cos(x)\n");
-		gnuplt1.Fls();
-	}
-	if (gnuplt2.Open())
-	{
-		gnuplt2.SetCurrentWnd();
-		gnuplt2.Plot("plot sin(x)\n");
-		gnuplt2.Fls();
-	}
+
+
+
+		if (gnuplt1.Open())
+		{
+			gnuplt1.SetCurrentWnd();
+
+		//while (1)
+			{
+				for (i = 0; i < 1000; i++)
+				{
+					datax[i] = i;
+					datay[i] = i *0.1;
+				}
+				gnuplt1.plot(datay,datax, 1000);
+				//gnuplt1.Plot("plot sin(x),cos(x)\n");
+				gnuplt1.Fls();
+				j++;
+				Sleep(100);
+				if (j == 100)
+				{
+					//break;
+				}
+			}
+
+		}
+
+	
 	getchar();
 
-	gnuplt1.SetCurrentWnd();
-	gnuplt1.Plot("plot tan(x)\n");
-	gnuplt1.Fls();
+	//if (gnuplt2.Open())
+	//{
+	//	gnuplt2.SetCurrentWnd();
+	//	gnuplt2.Plot("plot sin(x)\n");
+	//	gnuplt2.Fls();
+	//}
+	//getchar();
+
+	//gnuplt1.SetCurrentWnd();
+	//gnuplt1.Plot("plot tan(x)\n");
+	//gnuplt1.Fls();
 
 
 	getchar();

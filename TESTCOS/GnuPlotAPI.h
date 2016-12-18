@@ -80,7 +80,8 @@ public:
 	void	SetCurrentWnd();
 	void	IniPlotData();
 	int		MallocPlotData(int _type);
-	void	ploty(double *y, int n, int skip, double s);
+	void	plot(double *y, int n);
+	void	plot(double *x, double *y, int n);
 	void    AddLine(PltLine* _line);
 	~CGnuPlotAPI();
 private:
