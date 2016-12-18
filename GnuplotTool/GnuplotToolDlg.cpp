@@ -192,7 +192,6 @@ void CGnuplotToolDlg::OnBnClickedBtnPathGplt()
 
 
 
-
 	//if (pltt.fp != NULL)
 	//{
 	//	_pclose(pltt.fp);

@@ -14,7 +14,9 @@ CGnuPlotAPI::CGnuPlotAPI()
 	/* hide window */
 	//hw_CMD = FindWindow(NULL, _T("c:\\Windows\\system32\\cmd.exe"));
 	//ShowWindow(hw_CMD, SW_HIDE);
+
 }
+
 CGnuPlotAPI::~CGnuPlotAPI()
 {
 	if (m_fp != NULL)
@@ -77,6 +79,7 @@ void CGnuPlotAPI::SetXRange( double xmin, double xmax)
 {
 	fprintf(m_fp, "set xr[%.1f:%.1f]\n", xmin, xmax);
 }
+
 /* gnuplot set y axis range ----------------------------------------------------
 * set y axis range
 * args   : sdrplt_t *plt    I   sdr plot struct
@@ -88,11 +91,68 @@ void CGnuPlotAPI::SetYRange( double ymin, double ymax)
 {
 	fprintf(m_fp, "set yr[%.1f:%.1f]\n", ymin, ymax);
 }
-void	CGnuPlotAPI::Fls()
+
+void CGnuPlotAPI::Fls()
 {
 	fflush(m_fp);
 }
-void	CGnuPlotAPI::SetCurrentWnd()
+
+void CGnuPlotAPI::SetCurrentWnd()
 {
 	fprintf(m_fp, "set term wx %d\n",m_pltID);
+}
+
+int CGnuPlotAPI::MallocPlotData(int _type)
+{
+	/* memory allocation */
+	switch (_type) {
+	case PLT_Y:
+		if (!(m_y = (double*)malloc(sizeof(double)*m_ny))) {
+			//SDRPRINTF("error: initsdrplot memory allocation\n");
+			return -1;
+		}
+		break;
+	case PLT_XY:
+		if (!(m_x = (double*)malloc(sizeof(double)*m_nx)) ||
+			!(m_y = (double*)malloc(sizeof(double)*m_nx))) {
+			//SDRPRINTF("error: initsdrplot memory allocation\n");
+			return -1;
+		}
+		break;
+	case PLT_SURFZ:
+		if (!(m_z = (double*)malloc(sizeof(double)*m_nx*m_ny))){
+			//SDRPRINTF("error: initsdrplot memory allocation\n");
+			return -1;
+		}
+		break;
+	default:
+		break;
+	}
+
+}
+/* plot 1D function ------------------------------------------------------------
+* gnuplot plot 1D data function
+* args   : FILE   *fp       I   gnuplot pipe handle
+*          double *y        I   y data
+*          int    n         I   number of input data
+*          int    skip      I   number of skip data (0: plot all data)
+*          double s         I   scale factor of y data
+* return : none
+*-----------------------------------------------------------------------------*/
+void CGnuPlotAPI::ploty(double *y, int n, int skip, double s)
+{
+	int i;
+	fprintf(m_fp, "set grid\n");
+	fprintf(m_fp, "unset key\n");
+	fprintf(m_fp, "plot '-' with lp lw 1 pt 6 ps %d\n", PSIZE);
+	for (i = 0; i<n; i += (skip + 1))
+		fprintf(m_fp, "%.3f\n", y[i] * s);
+	fprintf(m_fp, "e\n");
+	fflush(m_fp);
+}
+
+void CGnuPlotAPI::AddLine(PltLine* _line)
+{
+	m_line.insert(m_line.begin(),_line);
+
 }
