@@ -9,6 +9,7 @@
 #include <io.h>
 #include <list>
 #include <string>
+#include <atlconv.h>
 using namespace std;
 
 /*plotting setting */
@@ -69,7 +70,7 @@ typedef class CGnuPlotAPI
 public:
 	CGnuPlotAPI();
 	HWND	  hw_CMD;             /* window handle */
-	CString   ReturnPath();
+	string   ReturnPath();
 	PltWnd	  m_pltWnd;
 	PltLine   m_line;
 	void	Plot(CString _str);
@@ -87,7 +88,7 @@ public:
 	~CGnuPlotAPI();
 private:
 	FILE		*m_fp;            /* file pointer (gnuplot pipe) */
-	CString		m_pltpath;
+	string		m_pltpath;
 	int			m_isOpen;
 	int m_pltID;           /* number of figure */
 	int m_type;            /* plotting type (PLT_X/PLT_XY/PLT_SURFZ) */

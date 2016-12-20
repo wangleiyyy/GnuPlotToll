@@ -25,23 +25,27 @@ CGnuPlotAPI::~CGnuPlotAPI()
 	}
 }
 
-CString    CGnuPlotAPI::ReturnPath()
+string    CGnuPlotAPI::ReturnPath()
 {
-	CString    sPath;
-	GetModuleFileName(NULL, sPath.GetBufferSetLength(MAX_PATH + 1), MAX_PATH);
-	sPath.ReleaseBuffer();
-	int    nPos;
-	nPos = sPath.ReverseFind('\\');
-	sPath = sPath.Left(nPos)+ CString("\\Gnuplot\\gnuplot.exe");
+	 
+
+	char path[256];		
+	GetModuleFileName(NULL, (LPWSTR)path, MAX_PATH);
+	USES_CONVERSION;
+	string    sPath(W2A((LPWSTR)path));
+	int    nPos,lenth;
+	nPos = sPath.find_last_of('\\');
+	lenth = sPath.length();
+	sPath = sPath.erase(nPos, lenth - nPos) + "\\Gnuplot\\gnuplot.exe";
 	return    sPath;
 }
 
 bool CGnuPlotAPI::Open()
 {
 	USES_CONVERSION;
-	char *path = T2A(m_pltpath);
+	const char *path = m_pltpath.c_str();
 
-	if (!_access(path, 0))
+	if (!_access(m_pltpath.c_str(), 0))
 	{
 		m_fp = _popen(path, "w");
 		if (m_fp == NULL)

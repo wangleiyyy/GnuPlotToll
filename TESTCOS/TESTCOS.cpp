@@ -41,25 +41,40 @@ int _tmain(int argc, _TCHAR* argv[])
 	while (1)
 	{
 		cout << "draw the col of data:\n";
-		cin >> cols ;
-		switch (cols)
+		cin >> cols;
+		if (cols == 0)
 		{
-		case 31:
-			usingcmd = gnupltstrproc(3, 1, datapath);
-			break;
-		case 34:
-			usingcmd = gnupltstrproc(3, 4, datapath);
-			break;
-		case 37:
-			usingcmd = gnupltstrproc(3, 7, datapath);
-			break;
-		case 0:
-			goto OUT_EXIT;
-			break;
-		default:
-			usingcmd = gnupltstrproc(1, cols, datapath);
 			break;
 		}
+
+		if (cols < 11)
+		{
+			usingcmd = gnupltstrproc(1, cols, datapath);
+		}
+		else
+		{
+			usingcmd = gnupltstrproc(cols / 10 , cols % 10, datapath);
+		}
+
+
+		//switch (cols)
+		//{
+		//case 31:
+		//	usingcmd = gnupltstrproc(3, 2, datapath);
+		//	break;
+		//case 34:
+		//	usingcmd = gnupltstrproc(3, 5, datapath);
+		//	break;
+		//case 37:
+		//	usingcmd = gnupltstrproc(3, 7, datapath);
+		//	break;
+		//case 0:
+		//	goto OUT_EXIT;
+		//	break;
+		//default:
+		//	usingcmd = gnupltstrproc(1, cols, datapath);
+		//	break;
+		//}
 
 
 		//cout << "plot col:" + col +string("\n") ;
